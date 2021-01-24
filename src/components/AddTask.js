@@ -1,12 +1,27 @@
 import { useState } from "react";
 
-const AddTask = ({ showAddForm }) => {
+const AddTask = ({ onSaveTask, onClick }) => {
   const [text, setText] = useState("");
   const [day, setDay] = useState("");
   const [reminder, setReminder] = useState(false);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!text || !day) {
+      alert("Please add a text and day");
+      return;
+    }
+    const id = Math.floor(Math.random() * 10000);
+    onSaveTask({ id, text, day, reminder });
+
+    setText("");
+    setDay("");
+    setReminder(false);
+    onClick();
+  };
   return (
     <div className="container">
-      <form className="add-form">
+      <form className="add-form" onSubmit={onSubmit}>
         <div className="form-control">
           <label> Task </label>
           <input

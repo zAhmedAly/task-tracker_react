@@ -32,6 +32,7 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  // Toggle Reminder of existing task
   const toggleReminder = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -40,10 +41,19 @@ function App() {
     );
   };
 
+  const onSaveTask = (newTask) => {
+    setTasks([...tasks, newTask]);
+  };
+
   return (
     <div className="container">
       <Header showForm={showForm} onClick={() => setShowForm(!showForm)} />
-      {showForm && <AddTask />}
+      {showForm && (
+        <AddTask
+          onSaveTask={onSaveTask}
+          onClick={() => setShowForm(!showForm)}
+        />
+      )}
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (

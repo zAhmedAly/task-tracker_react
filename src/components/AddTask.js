@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-const AddTask = () => {
+const AddTask = ({ showAddForm }) => {
   const [text, setText] = useState("");
   const [day, setDay] = useState("");
   const [reminder, setReminder] = useState(false);
   return (
-    <>
+    <div className="container">
       <form className="add-form">
         <div className="form-control">
           <label> Task </label>
@@ -23,7 +23,7 @@ const AddTask = () => {
             type="text"
             placeholder="Add Day & Time"
             value={day}
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => setDay(e.target.value)}
           />
         </div>
         <div className="form-control form-control-check">
@@ -38,7 +38,7 @@ const AddTask = () => {
 
         <input type="submit" value="Save Task" className="btn btn-block" />
       </form>
-    </>
+    </div>
   );
 };
 

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import AddTask from "./components/AddTask";
-import Button from "./components/Button";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 
 function App() {
+  const [showForm, setShowForm] = useState(false);
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -28,7 +29,7 @@ function App() {
 
   // Delete Task
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id != id));
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const toggleReminder = (id) => {
@@ -41,11 +42,8 @@ function App() {
 
   return (
     <div className="container">
-      <div className="header">
-        <h1> Task Tracker </h1>
-        <Button color="green" text="Add" />
-      </div>
-      <AddTask />
+      <Header showForm={showForm} onClick={() => setShowForm(!showForm)} />
+      {showForm && <AddTask />}
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
